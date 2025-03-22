@@ -27,7 +27,6 @@ export default function Page() {
       options: {
         redirectTo: `${window.location.origin}/login/callback`,
     queryParams: {
-      access_type: 'offline',
       prompt: 'consent',
     },
   
