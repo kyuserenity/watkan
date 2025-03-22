@@ -26,6 +26,11 @@ export default function Page() {
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/login/callback`,
+    queryParams: {
+      access_type: 'offline',
+      prompt: 'consent',
+    },
+  
       },
     });
   };
