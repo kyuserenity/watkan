@@ -62,8 +62,9 @@ const LoginButtons = ({ onGoogleLogin, onClose }) => (
 
 export default function Page() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [isVisible, setIsVisible] = useState(false);
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next");
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -75,7 +76,6 @@ export default function Page() {
 
   const handleGoogleLogin = async () => {
     const supabase = createClient();
-    const next = searchParams.get("next");
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
