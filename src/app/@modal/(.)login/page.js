@@ -3,9 +3,59 @@
 import { CheckSquare2Icon, LampCeilingIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react"; // Add Suspense import
 import { createClient } from "@/utils/supabase/client";
 import googleIcon from "./google.svg";
+
+// Create a separate component for the parts that use searchParams
+function LoginContent() {
+  const router = useRouter();
+  const [isVisible, setIsVisible] = useState(false);
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next");
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    setIsVisible(true);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  const handleGoogleLogin = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback${next ? `?next=${next}` : ""}`,
+      },
+    });
+  };
+
+  const closeModal = () => {
+    setIsVisible(false);
+    setTimeout(() => {
+      router.back();
+    }, 300);
+  };
+
+  return (
+    <LoginModal
+      isVisible={isVisible}
+      onClose={closeModal}
+      onGoogleLogin={handleGoogleLogin}
+    />
+  );
+}
+
+// Main page component that uses Suspense
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}
 
 const LoginModal = ({ isVisible, onClose, onGoogleLogin }) => (
   <div
@@ -59,43 +109,3 @@ const LoginButtons = ({ onGoogleLogin, onClose }) => (
     </button>
   </>
 );
-
-export default function Page() {
-  const router = useRouter();
-  const [isVisible, setIsVisible] = useState(false);
-  const searchParams = useSearchParams();
-  const next = searchParams.get("next");
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    setIsVisible(true);
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
-
-  const handleGoogleLogin = async () => {
-    const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback${next ? `?next=${next}` : ""}`,
-      },
-    });
-  };
-
-  const closeModal = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      router.back();
-    }, 300);
-  };
-
-  return (
-    <LoginModal
-      isVisible={isVisible}
-      onClose={closeModal}
-      onGoogleLogin={handleGoogleLogin}
-    />
-  );
-}
