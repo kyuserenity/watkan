@@ -31,13 +31,13 @@ export default async function Page() {
     <div className="p-6">
       <div>
         <div className="relative flex h-48 w-full justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
-          <div className="absolute top-36 flex flex-col items-center gap-2 text-center">
+          <div className="absolute top-32 flex flex-col items-center gap-2 text-center">
             <Image
               src={profile?.avatar_url || user.user_metadata.avatar_url}
               width={80}
               height={80}
               alt="Avatar"
-              className="border-background aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900"
+              className="border-background! aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900"
             />
             <p className="font-kranky text-xl font-semibold uppercase">
               {profile?.username || user.user_metadata.name}
