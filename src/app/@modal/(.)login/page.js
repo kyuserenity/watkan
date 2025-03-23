@@ -80,9 +80,6 @@ export default function Page() {
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback${next ? `?next=${next}` : ""}`,
-        queryParams: {
-          access_type: "offline",
-        },
       },
     });
   };
