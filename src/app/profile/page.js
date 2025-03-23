@@ -1,5 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
+import { LogOutIcon } from "lucide-react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -8,11 +10,22 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (!user) {
+    return redirect("/login");
+  }
+
   const { data: profile } = await supabase
     .from("profiles")
     .select("username, avatar_url")
     .eq("id", user.id)
     .single();
+
+  async function handleLogout() {
+    "use server";
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+    return redirect("/");
+  }
 
   return (
     <div className="p-6">
@@ -20,14 +33,14 @@ export default async function Page() {
         <div className="relative flex h-48 w-full justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
           <div className="absolute top-36 flex flex-col items-center gap-2 text-center">
             <Image
-              src={profile.avatar_url || user.user_metadata.avatar_url}
+              src={profile?.avatar_url || user.user_metadata.avatar_url}
               width={80}
               height={80}
               alt="Avatar"
-              className="border-background! aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900"
+              className="border-background aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900"
             />
             <p className="font-kranky text-xl font-semibold uppercase">
-              {profile?.username}
+              {profile?.username || user.user_metadata.name}
             </p>
           </div>
         </div>
@@ -49,7 +62,6 @@ export default async function Page() {
           มินท์ลีเมอร์ฮิปฮอป รีวิวพงษ์ สตรอเบอร์รีเป่ายิงฉุบภูมิทัศน์
         </p>
       </div>
-      {/*  */}
       <div className="mt-4 flex gap-4">
         <button className="flex-1 rounded-lg bg-zinc-100 p-3 dark:bg-zinc-900">
           แก้ไขโปรไฟล์
@@ -57,8 +69,15 @@ export default async function Page() {
         <button className="flex-1 rounded-lg bg-zinc-100 p-3 dark:bg-zinc-900">
           แชร์โปรไฟล์
         </button>
+        <form action={handleLogout}>
+          <button
+            type="submit"
+            className="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-900"
+          >
+            <LogOutIcon />
+          </button>
+        </form>
       </div>
-      {/*  */}
     </div>
   );
 }
