@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ArrowLeftIcon,
-  ArrowUpRightIcon,
-  LampCeilingIcon,
-  SearchIcon,
-  XIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, ArrowUpRightIcon, SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 

@@ -49,7 +49,7 @@ export default function Profile() {
     <div className="">
       <div>
         <div className="relative flex h-48 w-full justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
-          <div className="absolute top-32 flex flex-col items-center gap-2 text-center">
+          <div className="absolute top-36 flex flex-col items-center gap-2 text-center">
             {loading ? (
               <div className="border-background! aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900" />
             ) : (

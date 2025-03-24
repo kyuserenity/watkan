@@ -71,6 +71,20 @@ export default function Page() {
     } = await supabase.auth.getUser();
     if (!authUser) return router.push("/login");
 
+    // ตรวจสอบว่า username ที่กรอกมีในฐานข้อมูลหรือไม่
+    const { data: existingProfile } = await supabase
+      .from("profiles")
+      .select("username, id")
+      .eq("username", profile.username.trim())
+      .single();
+
+    if (existingProfile && existingProfile.id !== authUser.id) {
+      // ถ้ามี username นี้ในฐานข้อมูลและเป็นคนอื่น
+      setError("ชื่อผู้ใช้นี้มีอยู่แล้วในระบบ");
+      setIsSaving(false);
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
