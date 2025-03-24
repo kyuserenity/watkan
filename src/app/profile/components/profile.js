@@ -43,7 +43,7 @@ export default function Profile() {
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    router.push("/");
+    router.refresh();
   }
 
   return (
