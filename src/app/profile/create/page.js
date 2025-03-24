@@ -43,7 +43,7 @@ export default function Page() {
       >
         {/*  */}
         <h1 className="text-3xl font-semibold">สร้างโพสต์</h1>
-        <form className="mt-6">
+        <form className="mt-4">
           <div>
             <label>
               <div className="flex aspect-square cursor-pointer items-center justify-center rounded-lg bg-zinc-100 duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700">
@@ -68,7 +68,7 @@ export default function Page() {
           </button>
         </form>
         <button
-          className="mt-6 w-full rounded-lg border p-3 duration-100 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+          className="mt-4 w-full rounded-lg border p-3 duration-100 hover:bg-zinc-100 dark:hover:bg-zinc-900"
           onClick={closeModal}
         >
           <p>ปิด</p>
