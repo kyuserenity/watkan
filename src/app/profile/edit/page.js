@@ -119,10 +119,6 @@ export default function Page() {
       >
         <form onSubmit={handleSubmit}>
           <h1 className="text-3xl font-semibold">แก้ไขโปรไฟล์</h1>
-          <p>
-            หลังจากบันทึกคุณต้องรีเฟรชหน้าเว็บ
-            ข้อมูลจะเป็นข้อมูลใหม่ที่คุณได้แก้ไขไป
-          </p>
           <div className="mt-4 grid gap-4">
 <div>
               <p>ชื่อโปรไฟล์</p>
