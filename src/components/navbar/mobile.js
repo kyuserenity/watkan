@@ -1,6 +1,6 @@
 "use client";
 
-import { HomeIcon, PlusSquareIcon, UserIcon } from "lucide-react";
+import { HomeIcon, LibraryBigIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,12 +17,13 @@ export default function MobileNavbar() {
           <p className="text-sm">หน้าแรก</p>
         </Link>
         <Link
-          className={`${pathname !== "/create" && "opacity-50"} flex flex-1 flex-col items-center justify-center gap-1`}
-          href={"/create"}
+          className={`${pathname !== "/threads" && "opacity-50"} flex flex-1 flex-col items-center justify-center gap-1`}
+          href={"/threads"}
         >
-          <PlusSquareIcon />
-          <p className="text-sm">สร้าง</p>
+          <LibraryBigIcon />
+          <p className="text-sm">เธรด</p>
         </Link>
+        {/*  */}
         <Link
           className={`${pathname !== "/profile" && "opacity-50"} flex flex-1 flex-col items-center justify-center gap-1`}
           href={"/profile"}
