@@ -27,7 +27,6 @@ export default function Profile() {
 
       setUser(authUser);
 
-      // After confirming user is logged in, fetch profile data
       const { data: profileData } = await supabase
         .from("profiles")
         .select("*")
@@ -36,7 +35,6 @@ export default function Profile() {
 
       setProfile(profileData);
       setLoading(false);
-      console.log(profileData);
     }
 
     loadUserData();
@@ -52,7 +50,6 @@ export default function Profile() {
       <div>
         <div className="relative flex h-48 w-full justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
           <div className="absolute top-32 flex flex-col items-center gap-2 text-center">
-            {/* Show placeholder or skeleton during loading */}
             {loading ? (
               <div className="border-background! aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900" />
             ) : (
@@ -62,6 +59,7 @@ export default function Profile() {
                 height={80}
                 alt="Avatar"
                 className="border-background! aspect-square w-28 rounded-full border-8 bg-zinc-100 dark:bg-zinc-900"
+                priority
               />
             )}
             {loading ? (
@@ -82,7 +80,7 @@ export default function Profile() {
             ) : (
               <p>0</p>
             )}
-            <p className="text-sm opacity-50">ผู้ติดตาม</p>
+            <p className="mt-1 text-sm opacity-50">ผู้ติดตาม</p>
           </div>
           <div className="w-28"></div>
           <div className="flex-1 text-center text-nowrap">
@@ -93,7 +91,7 @@ export default function Profile() {
             ) : (
               <p>0</p>
             )}
-            <p className="text-sm opacity-50">ถูกใจ</p>
+            <p className="mt-1 text-sm opacity-50">ถูกใจ</p>
           </div>
         </div>
       </div>

@@ -46,6 +46,7 @@ export default function Page() {
           <button
             className="rounded-lg bg-zinc-100 p-2 dark:bg-zinc-900"
             onClick={closeModal}
+            type="button"
           >
             <ArrowLeftIcon />
           </button>
@@ -54,8 +55,8 @@ export default function Page() {
             type="search"
             name="s"
             placeholder="ค้นหา..."
-            autoFocus
             autoComplete="off"
+            autoFocus
           />
           <button
             className="rounded-lg bg-zinc-100 p-2 dark:bg-zinc-900"
