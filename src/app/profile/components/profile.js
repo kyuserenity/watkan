@@ -21,10 +21,6 @@ export default function Profile() {
         data: { user: authUser },
       } = await supabase.auth.getUser();
 
-      if (!authUser) {
-        return router.push("/login");
-      }
-
       setUser(authUser);
 
       const { data: profileData } = await supabase
@@ -42,7 +38,7 @@ export default function Profile() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.refresh();
+    router.push("/");
   };
 
   const renderProfileData = () => (
