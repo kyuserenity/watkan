@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/client";
 import { LogOutIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -47,7 +48,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="p-6">
+    <div className="">
       <div>
         <div className="relative flex h-48 w-full justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
           <div className="absolute top-32 flex flex-col items-center gap-2 text-center">
@@ -108,9 +109,12 @@ export default function Profile() {
         )}
       </div>
       <div className="mt-4 flex gap-4">
-        <button className="flex-1 rounded-lg bg-zinc-100 p-3 duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700">
+        <Link
+          className="flex-1 rounded-lg bg-zinc-100 p-3 text-center duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700"
+          href={"/profile/edit"}
+        >
           แก้ไขโปรไฟล์
-        </button>
+        </Link>
         <button className="flex-1 rounded-lg bg-zinc-100 p-3 duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700">
           แชร์โปรไฟล์
         </button>

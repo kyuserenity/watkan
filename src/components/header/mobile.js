@@ -20,10 +20,10 @@ export default function MobileHeader() {
       <div className="flex items-center gap-6">
         {pathname.includes("profile") ? (
           <>
-            <Link href={"/create"}>
+            <Link href={"/profile/create"}>
               <PlusSquareIcon className="h-7 w-7" />
             </Link>
-            <Link href={"/setting"}>
+            <Link href={"/profile/setting"}>
               <MenuIcon className="h-7 w-7" />
             </Link>
           </>
