@@ -6,7 +6,7 @@ export default async function Layout({ children, modal }) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/");
   return (
     <>
       <div className="p-6">{children}</div>
