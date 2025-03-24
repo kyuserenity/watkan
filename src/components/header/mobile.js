@@ -10,11 +10,11 @@ export default function MobileHeader() {
     <div className="flex items-center justify-between border-b-2 p-6 md:hidden">
       <div>
         {pathname.includes("profile") ? (
-          <p className="font-kranky text-3xl font-semibold uppercase">watkan</p>
-        ) : (
           <p className="font-kranky text-3xl font-semibold uppercase">
             profile
           </p>
+        ) : (
+          <p className="font-kranky text-3xl font-semibold uppercase">watkan</p>
         )}
       </div>
       <div className="flex items-center gap-6">
