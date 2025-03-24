@@ -124,6 +124,8 @@ export default function Page() {
             ข้อมูลจะเป็นข้อมูลใหม่ที่คุณได้แก้ไขไป
           </p>
           <div className="mt-4 grid gap-4">
+<div>
+              <p>ชื่อโปรไฟล์</p>
             <input
               className="w-full rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
               type="text"
@@ -134,6 +136,9 @@ export default function Page() {
               onChange={handleChange}
               disabled={loading || isSaving}
             />
+</div>
+<div>
+              <p>แนะนำตัวเอง</p>
             <textarea
               className="w-full resize-none rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
               name="bio"
@@ -144,6 +149,7 @@ export default function Page() {
               onChange={handleChange}
               disabled={loading || isSaving}
             />
+</div>
             {/* เพิ่ม input สำหรับเลือกสี */}
             <div>
               <p>สีพื้นหลังโปรไฟล์</p>
