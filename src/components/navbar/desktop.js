@@ -24,7 +24,11 @@ export default async function DesktopNavbar() {
 
         <NavLink href="/threads" icon={<LibraryBigIcon />} text="เธรด" />
 
-        <NavLink href="/create" icon={<PlusSquareIcon />} text="สร้าง" />
+        <NavLink
+          href="/profile/create"
+          icon={<PlusSquareIcon />}
+          text="สร้าง"
+        />
 
         <NavLink href="/profile" icon={<UserIcon />} text="โปรไฟล์" />
       </div>

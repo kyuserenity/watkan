@@ -8,7 +8,11 @@ export default function Page() {
   const router = useRouter();
   const supabase = createClient();
 
-  const [profile, setProfile] = useState({ username: "", bio: "" });
+  const [profile, setProfile] = useState({
+    username: "",
+    bio: "",
+    color: "#000000",
+  }); // เพิ่ม color
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState(""); // 🛑 เก็บ error message
@@ -41,6 +45,7 @@ export default function Page() {
         setProfile({
           username: profileData.username || "",
           bio: profileData.bio || "",
+          color: profileData.color || "#000000", // ดึงค่า color ถ้ามี
         });
       }
 
@@ -71,11 +76,24 @@ export default function Page() {
     } = await supabase.auth.getUser();
     if (!authUser) return router.push("/login");
 
+    const { data: existingProfile } = await supabase
+      .from("profiles")
+      .select("username, id")
+      .eq("username", profile.username.trim())
+      .single();
+
+    if (existingProfile && existingProfile.id !== authUser.id) {
+      setError("ชื่อผู้ใช้นี้มีอยู่แล้วในระบบ");
+      setIsSaving(false);
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
         username: profile.username.trim(),
         bio: profile.bio.trim(),
+        color: profile.color.trim(),
       })
       .eq("id", authUser.id);
 
@@ -85,7 +103,7 @@ export default function Page() {
       return;
     }
 
-    closeModal();
+    router.push("/profile");
   };
 
   return (
@@ -126,6 +144,18 @@ export default function Page() {
               onChange={handleChange}
               disabled={loading || isSaving}
             />
+            {/* เพิ่ม input สำหรับเลือกสี */}
+            <div>
+              <p>สีพื้นหลังโปรไฟล์</p>
+              <input
+                className="h-12 w-full rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
+                type="color"
+                name="color"
+                value={profile.color}
+                onChange={handleChange}
+                disabled={loading || isSaving}
+              />
+            </div>
           </div>
 
           {/* 🛑 แสดง error message ถ้ามี */}
