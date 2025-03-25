@@ -100,26 +100,24 @@ export default function ArtworkUploadPage() {
       }`}
     >
       <div
-        className={`w-full max-w-md duration-300 ${
+        className={`max-h-full w-full max-w-md overflow-auto duration-300 ${
           state.isModalVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
       >
         <h1 className="text-3xl font-semibold">สร้างโพสต์</h1>
         <form onSubmit={handleSubmit} className="mt-6">
           <label className="block cursor-pointer">
-            <div className="flex aspect-square items-center justify-center rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800">
-              {state.imagePreview ? (
-                <Image
-                  src={state.imagePreview}
-                  alt="Preview"
-                  width={300}
-                  height={300}
-                  className="rounded-lg"
-                />
-              ) : (
+            {state.imagePreview ? (
+              <img
+                src={state.imagePreview}
+                alt="Preview"
+                className="w-full rounded-lg"
+              />
+            ) : (
+              <div className="flex aspect-square items-center justify-center rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800">
                 <p className="opacity-65">คลิกเพื่อเลือกรูปภาพ</p>
-              )}
-            </div>
+              </div>
+            )}
             <input
               type="file"
               hidden
