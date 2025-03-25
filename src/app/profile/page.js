@@ -1,16 +1,12 @@
 import Artwork from "./components/artworks";
 import Profile from "./components/profile";
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <Profile />
-      <div className="mt-6 grid grid-cols-2 gap-4 border-t pt-6">
-        <Artwork />
-        <Artwork />
-        <Artwork />
-        <Artwork />
-      </div>
+      <Artwork />
+      <div className="mt-40"></div>
     </>
   );
 }

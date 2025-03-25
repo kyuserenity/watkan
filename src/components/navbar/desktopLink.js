@@ -7,7 +7,7 @@ export default function NavLink({ href, icon, text }) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
-  const baseClasses = "flex items-center gap-4 rounded-lg p-3 duration-100";
+  const baseClasses = "flex items-center gap-4  rounded-lg p-3 duration-100";
   const activeClasses =
     "bg-foreground text-background hover:bg-zinc-900 focus-visible:bg-zinc-900 active:bg-zinc-800 dark:hover:bg-zinc-100 dark:focus-visible:bg-zinc-100 dark:active:bg-zinc-200";
   const inactiveClasses =

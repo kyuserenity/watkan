@@ -12,10 +12,10 @@ export default function Page() {
     username: "",
     bio: "",
     color: "#000000",
-  }); // เพิ่ม color
+  });
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState(""); // 🛑 เก็บ error message
+  const [error, setError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -97,9 +97,9 @@ export default function Page() {
       })
       .eq("id", authUser.id);
 
-    setIsSaving(false);
     if (error) {
       setError("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      setIsSaving(false);
       return;
     }
 
@@ -108,47 +108,52 @@ export default function Page() {
 
   return (
     <div
-      className={`fixed inset-0 z-20 flex items-center justify-center bg-zinc-950/5 p-6 backdrop-blur-xs duration-300 dark:bg-zinc-50/5 ${
+      className={`bg-background fixed inset-0 z-20 flex items-center justify-center p-8 duration-300 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
       <div
-        className={`bg-background flex max-h-full w-full max-w-lg flex-col rounded-lg p-6 duration-300 ${
+        className={`max-h-full w-full max-w-3xl duration-300 ${
           isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
       >
+        <h1 className="text-3xl font-semibold">แก้ไขโปรไฟล์</h1>
         <form onSubmit={handleSubmit}>
-          <h1 className="text-3xl font-semibold">แก้ไขโปรไฟล์</h1>
-          <p>
-            หลังจากบันทึกคุณต้องรีเฟรชหน้าเว็บ
-            ข้อมูลจะเป็นข้อมูลใหม่ที่คุณได้แก้ไขไป
-          </p>
-          <div className="mt-4 grid gap-4">
-            <input
-              className="w-full rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
-              type="text"
-              name="username"
-              placeholder={loading ? "กำลังโหลด..." : "ชื่อผู้ใช้..."}
-              value={loading ? "" : profile.username}
-              autoComplete="off"
-              onChange={handleChange}
-              disabled={loading || isSaving}
-            />
-            <textarea
-              className="w-full resize-none rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
-              name="bio"
-              placeholder={loading ? "กำลังโหลด..." : "แนะนำตัว..."}
-              value={loading ? "" : profile.bio}
-              rows={3}
-              autoComplete="off"
-              onChange={handleChange}
-              disabled={loading || isSaving}
-            />
-            {/* เพิ่ม input สำหรับเลือกสี */}
+          <div className="mt-4 grid gap-2">
+            <div>
+              <p>ชื่อผู้ใช้</p>
+              <input
+                className="w-full rounded-lg bg-zinc-100 px-4 py-3 dark:bg-zinc-900"
+                type="text"
+                name="username"
+                placeholder={
+                  loading ? "กำลังโหลด..." : "ใส่ชื่อผู้ใช้ของคุณ..."
+                }
+                value={loading ? "" : profile.username}
+                autoComplete="off"
+                onChange={handleChange}
+                disabled={loading || isSaving}
+              />
+            </div>
+            <div>
+              <p>แนะนำตัว</p>
+              <textarea
+                className="w-full resize-none rounded-lg bg-zinc-100 px-4 py-3 dark:bg-zinc-900"
+                name="bio"
+                placeholder={
+                  loading ? "กำลังโหลด..." : "ใส่ข้อความแนะนำตัวของคุณ..."
+                }
+                value={loading ? "" : profile.bio}
+                rows={3}
+                autoComplete="off"
+                onChange={handleChange}
+                disabled={loading || isSaving}
+              />
+            </div>
             <div>
               <p>สีพื้นหลังโปรไฟล์</p>
               <input
-                className="h-12 w-full rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900"
+                className="h-12 w-full rounded-lg bg-zinc-100 px-4 py-3 dark:bg-zinc-900"
                 type="color"
                 name="color"
                 value={profile.color}
@@ -157,10 +162,7 @@ export default function Page() {
               />
             </div>
           </div>
-
-          {/* 🛑 แสดง error message ถ้ามี */}
           {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
-
           <button
             className="bg-foreground mt-6 flex w-full items-center justify-center gap-4 rounded-lg p-3 duration-100 hover:bg-zinc-900 dark:hover:bg-zinc-100"
             type="submit"

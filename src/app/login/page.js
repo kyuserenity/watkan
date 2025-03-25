@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckSquare2Icon, LampCeilingIcon } from "lucide-react";
+import { CheckSquare2Icon } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
@@ -57,19 +57,16 @@ export default function Page() {
 
 const LoginModal = ({ isVisible, onClose, onGoogleLogin }) => (
   <div
-    className={`fixed inset-0 z-20 flex items-center justify-center bg-zinc-950/5 p-6 backdrop-blur-xs duration-300 dark:bg-zinc-50/5 ${
+    className={`bg-background fixed inset-0 z-20 flex items-center justify-center p-8 duration-300 ${
       isVisible ? "opacity-100" : "opacity-0"
     }`}
   >
     <div
-      className={`bg-background relative w-full max-w-lg overflow-hidden rounded-lg p-10 duration-300 ${
+      className={`max-h-full w-full max-w-3xl duration-300 ${
         isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
       }`}
     >
-      <LampCeilingIcon className="mx-auto h-10 w-10 delay-300 duration-1000 dark:fill-amber-200 dark:text-amber-200" />
-      <h1 className="font-kranky mt-6 text-center text-6xl font-semibold">
-        LOGIN
-      </h1>
+      <h1 className="text-6xl font-semibold">ล็อกอินแล้วได้อะไร?</h1>
       <LoginBenefits />
       <LoginButtons onGoogleLogin={onGoogleLogin} onClose={onClose} />
     </div>
@@ -84,8 +81,10 @@ const LoginBenefits = () => (
 );
 
 const BenefitItem = ({ text }) => (
-  <li className="flex gap-2">
-    <CheckSquare2Icon />
+  <li className="flex gap-4">
+    <div>
+      <CheckSquare2Icon />
+    </div>
     <p>{text}</p>
   </li>
 );
@@ -95,6 +94,7 @@ const LoginButtons = ({ onGoogleLogin, onClose }) => (
     <button
       className="bg-foreground mt-6 flex w-full items-center justify-center gap-4 rounded-lg p-3 duration-100 hover:bg-zinc-900 dark:hover:bg-zinc-100"
       onClick={onGoogleLogin}
+      type="button"
     >
       <Image className="h-6 w-6" src={googleIcon} alt="Google logo" priority />
       <p className="text-background">ล็อกอินด้วย Google</p>
@@ -102,6 +102,7 @@ const LoginButtons = ({ onGoogleLogin, onClose }) => (
     <button
       className="mt-4 w-full rounded-lg border p-3 duration-100 hover:bg-zinc-100 dark:hover:bg-zinc-900"
       onClick={onClose}
+      type="button"
     >
       <p>ปิด</p>
     </button>

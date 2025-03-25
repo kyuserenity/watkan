@@ -28,16 +28,15 @@ export default async function RootLayout({ children, modal }) {
       <body
         className={`${prompt.variable} ${kranky.variable} antialiased select-none **:border-zinc-100 **:dark:border-zinc-900`}
       >
-        <div className="mx-auto w-fit">
-          <div className="md:flex">
-            <Navbar />
-            <div className="w-screen max-w-lg md:flex-1">
-              <Header />
-              {children}
-              {modal}
-            </div>
-          </div>
+        <Header />
+        <div className="flex">
+          <Navbar />
+          <main className="mx-auto w-screen max-w-3xl">{children}</main>
+          <footer className="sticky top-16 flex h-[calc(100vh-64px)] max-w-80 flex-1 items-end p-6 not-xl:hidden">
+            <p>@watkan</p>
+          </footer>
         </div>
+        {modal}
       </body>
     </html>
   );

@@ -51,10 +51,10 @@ export default function Profile() {
         className={`${
           loading
             ? "bg-zinc-100 dark:bg-zinc-900"
-            : !profile.color && "bg-zinc-100 dark:bg-zinc-900"
-        } relative flex h-48 w-full justify-center rounded-lg delay-500 duration-500`}
+            : !profile?.color && "bg-zinc-100 dark:bg-zinc-900"
+        } relative flex h-48 w-full justify-center rounded-lg duration-500`}
         style={{
-          backgroundColor: loading ? "" : profile.color || "",
+          backgroundColor: loading ? "" : profile?.color || "black",
         }}
       >
         <div className="absolute top-36 flex flex-col items-center gap-2 text-center">
@@ -83,7 +83,6 @@ export default function Profile() {
           )}
         </div>
       </div>
-
       <div className="mt-4 flex gap-28">
         {["ผู้ติดตาม", "ถูกใจ"].map((label) => (
           <div key={label} className="flex-1 text-center text-nowrap">
@@ -122,9 +121,6 @@ export default function Profile() {
         >
           แก้ไขโปรไฟล์
         </Link>
-        <button className="flex-1 rounded-lg bg-zinc-100 p-3 duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700">
-          แชร์โปรไฟล์
-        </button>
         <button
           onClick={handleLogout}
           className="rounded-lg bg-zinc-100 p-3 duration-100 hover:bg-zinc-200 focus-visible:bg-zinc-200 active:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:focus-visible:bg-zinc-800 dark:active:bg-zinc-700"
