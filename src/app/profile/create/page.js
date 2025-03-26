@@ -142,11 +142,7 @@ export default function ArtworkUploadPage() {
                 <p className="opacity-65">คลิกเพื่อเลือกรูปภาพ</p>
               </div>
             )}
-            <input
-              type="file"
-              hiddenaccept="image/*"
-              onChange={handleImageChange}
-            />
+            <input type="file" accept="image/*" onChange={handleImageChange} />
           </label>
           <textarea
             className="mt-4 w-full resize-none rounded-lg bg-zinc-100 px-4 py-2 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800"
