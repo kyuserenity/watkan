@@ -18,7 +18,7 @@ export default function DesktopHeader() {
       </div>
       <div className="flex-1 hover:opacity-75 focus-visible:opacity-75 active:opacity-50">
         <Link href={"/search"} draggable={false}>
-          <div className="mx-auto flex max-w-4xl justify-center gap-2 rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-900">
+          <div className="mx-auto flex max-w-[736px] justify-center gap-2 rounded-lg bg-zinc-100 py-2 dark:bg-zinc-900">
             <SearchIcon />
             <p>ค้นหา</p>
           </div>

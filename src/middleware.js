@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/middleware";
+import { createClient } from "@/utils/supabase/server";
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/profile")) {
-    const supabase = createClient(request);
+    const supabase = await createClient(request);
     const {
       data: { session },
     } = await supabase.auth.getSession();
