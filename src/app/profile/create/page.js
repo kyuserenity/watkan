@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import heic2any from "heic2any";
 
 export default function ArtworkUploadPage() {
   const router = useRouter();
@@ -34,42 +35,38 @@ export default function ArtworkUploadPage() {
     setTimeout(() => router.back(), 300);
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-          canvas.toBlob(
-            (blob) => {
-              const jpgFile = new File(
-                [blob],
-                file.name.replace(/\.[^.]+$/, ".jpg"),
-                {
-                  type: "image/jpeg",
-                  lastModified: new Date().getTime(),
-                },
-              );
+      let convertedFile = file;
 
-              setState((prev) => ({
-                ...prev,
-                imageFile: jpgFile,
-                imagePreview: URL.createObjectURL(jpgFile),
-              }));
-            },
-            "image/jpeg",
-            1,
+      // ตรวจสอบว่าไฟล์เป็น HEIC หรือไม่
+      if (file.type === "image/heic" || file.name.endsWith(".heic")) {
+        try {
+          const conversionResult = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 1,
+          });
+          convertedFile = new File(
+            [conversionResult],
+            file.name.replace(/\.heic$/, ".jpg"),
+            { type: "image/jpeg" },
           );
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
+        } catch (error) {
+          console.error("การแปลงไฟล์ HEIC ล้มเหลว:", error);
+          return;
+        }
+      }
+
+      // สร้าง URL สำหรับแสดงตัวอย่างภาพ
+      const imagePreviewUrl = URL.createObjectURL(convertedFile);
+
+      setState((prev) => ({
+        ...prev,
+        imageFile: convertedFile,
+        imagePreview: imagePreviewUrl,
+      }));
     }
   };
 
