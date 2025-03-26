@@ -11,6 +11,7 @@ export default function ArtworkUploadPage() {
 
   const [state, setState] = useState({
     loading: false,
+    loadingImage: false,
     isModalVisible: false,
     imagePreview: null,
     imageFile: null,
@@ -38,9 +39,14 @@ export default function ArtworkUploadPage() {
   const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      let convertedFile = file;
+      setState((prev) => ({
+        ...prev,
+        imagePreview: null,
+        imageFile: null,
+        loadingImage: true,
+      }));
 
-      // ตรวจสอบว่าไฟล์เป็น HEIC หรือไม่
+      let convertedFile = file;
       if (file.type === "image/heic" || file.name.endsWith(".heic")) {
         try {
           const conversionResult = await heic2any({
@@ -55,26 +61,24 @@ export default function ArtworkUploadPage() {
           );
         } catch (error) {
           console.error("การแปลงไฟล์ HEIC ล้มเหลว:", error);
+          setState((prev) => ({ ...prev, loadingImage: false }));
           return;
         }
       }
 
-      // สร้าง URL สำหรับแสดงตัวอย่างภาพ
       const imagePreviewUrl = URL.createObjectURL(convertedFile);
-
       setState((prev) => ({
         ...prev,
         imageFile: convertedFile,
         imagePreview: imagePreviewUrl,
+        loadingImage: false,
       }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!state.imageFile) return;
-
     setState((prev) => ({ ...prev, loading: true }));
 
     try {
@@ -97,7 +101,6 @@ export default function ArtworkUploadPage() {
         });
 
       if (uploadError) throw uploadError;
-
       const { data: imageUrlData } = await supabase.storage
         .from("data")
         .getPublicUrl(filePath);
@@ -109,7 +112,6 @@ export default function ArtworkUploadPage() {
       });
 
       if (insertError) throw insertError;
-
       router.push("/profile");
     } catch (error) {
       console.error("Upload Error:", error);
@@ -119,19 +121,19 @@ export default function ArtworkUploadPage() {
 
   return (
     <div
-      className={`bg-background fixed inset-0 z-20 flex items-center justify-center p-8 duration-300 ${
-        state.isModalVisible ? "opacity-100" : "opacity-0"
-      }`}
+      className={`bg-background fixed inset-0 z-20 flex items-center justify-center p-8 duration-300 ${state.isModalVisible ? "opacity-100" : "opacity-0"}`}
     >
       <div
-        className={`max-h-full w-full max-w-md overflow-auto duration-300 ${
-          state.isModalVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
-        }`}
+        className={`max-h-full w-full max-w-md overflow-auto duration-300 ${state.isModalVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
       >
         <h1 className="text-3xl font-semibold">สร้างโพสต์</h1>
         <form onSubmit={handleSubmit} className="mt-6">
           <label className="block cursor-pointer">
-            {state.imagePreview ? (
+            {state.loadingImage ? (
+              <div className="flex aspect-square items-center justify-center rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800">
+                <p className="opacity-65">กำลังโหลดรูป...</p>
+              </div>
+            ) : state.imagePreview ? (
               <img
                 src={state.imagePreview}
                 alt="Preview"
