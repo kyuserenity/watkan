@@ -108,13 +108,13 @@ const LoginButtons = ({ onGoogleLogin, onClose }) => (
         preserveAspectRatio="xMidYMid"
         fill="#000000"
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           stroke="#030303"
-          stroke-width="22.532"
+          strokeWidth="22.532"
         >
           <path
             d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
