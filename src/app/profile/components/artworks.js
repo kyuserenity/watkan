@@ -102,7 +102,7 @@ export default function Artwork() {
             alt="Artwork"
             fill
             className="rounded-lg object-cover"
-            sizes="(max-width: 768px) 50vw, 25vw"
+            sizes="75vw"
           />
         </div>
       ))}
