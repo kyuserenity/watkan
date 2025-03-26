@@ -3,7 +3,6 @@
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 export default function ArtworkUploadPage() {
   const router = useRouter();
@@ -38,11 +37,39 @@ export default function ArtworkUploadPage() {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      setState((prev) => ({
-        ...prev,
-        imageFile: file,
-        imagePreview: URL.createObjectURL(file),
-      }));
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(
+            (blob) => {
+              const jpgFile = new File(
+                [blob],
+                file.name.replace(/\.[^.]+$/, ".jpg"),
+                {
+                  type: "image/jpeg",
+                  lastModified: new Date().getTime(),
+                },
+              );
+
+              setState((prev) => ({
+                ...prev,
+                imageFile: jpgFile,
+                imagePreview: URL.createObjectURL(jpgFile),
+              }));
+            },
+            "image/jpeg",
+            1,
+          );
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   };
 
