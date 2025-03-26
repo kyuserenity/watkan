@@ -144,7 +144,7 @@ export default function ArtworkUploadPage() {
             )}
             <input
               type="file"
-              hiddenaccept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml, image/tiff"
+              hiddenaccept="image/*"
               onChange={handleImageChange}
             />
           </label>
