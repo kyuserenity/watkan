@@ -16,6 +16,7 @@ export default function ArtworkUploadPage() {
     imagePreview: null,
     imageFile: null,
     description: "",
+    errorMessage: "", // Added errorMessage state
   });
 
   useEffect(() => {
@@ -78,8 +79,14 @@ export default function ArtworkUploadPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!state.imageFile) return;
-    setState((prev) => ({ ...prev, loading: true }));
+    if (!state.imageFile) {
+      setState((prev) => ({
+        ...prev,
+        errorMessage: "กรุณาอัพโหลดรูปด้วยครับ",
+      }));
+      return;
+    }
+    setState((prev) => ({ ...prev, loading: true, errorMessage: "" }));
 
     try {
       const {
@@ -115,7 +122,11 @@ export default function ArtworkUploadPage() {
       router.push("/profile");
     } catch (error) {
       console.error("Upload Error:", error);
-      setState((prev) => ({ ...prev, loading: false }));
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        errorMessage: "เกิดข้อผิดพลาดในการอัปโหลดหรือบันทึกข้อมูล", // Set error message
+      }));
     }
   };
 
@@ -149,6 +160,7 @@ export default function ArtworkUploadPage() {
               type="file"
               accept="image/*"
               onChange={handleImageChange}
+              disabled={state.loading || state.loadingImage} // Disable input while loading image
             />
           </label>
           <textarea
@@ -159,7 +171,11 @@ export default function ArtworkUploadPage() {
             onChange={(e) =>
               setState((prev) => ({ ...prev, description: e.target.value }))
             }
+            disabled={state.loading}
           />
+          {state.errorMessage && ( // Display error message if exists
+            <p className="mb-4 text-red-500">{state.errorMessage}</p>
+          )}
           <button
             className="bg-foreground text-background mt-6 flex w-full items-center justify-center gap-4 rounded-lg p-3 hover:bg-zinc-900 dark:hover:bg-zinc-100"
             type="submit"
@@ -171,6 +187,7 @@ export default function ArtworkUploadPage() {
         <button
           className="mt-4 w-full rounded-lg border p-3 hover:bg-zinc-100 dark:hover:bg-zinc-900"
           onClick={closeModal}
+          disabled={state.loading}
         >
           ปิด
         </button>

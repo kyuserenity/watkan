@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 
 export default function Artwork() {
   const supabase = createClient();
@@ -93,7 +94,8 @@ export default function Artwork() {
   return (
     <div className="mt-4 grid grid-cols-2 gap-4 border-t pt-4">
       {artworks.map((artwork, index) => (
-        <div
+        <Link
+          href={`/artwork/${artwork.id}`}
           key={`${artwork.id}-${index}`}
           className="relative aspect-square rounded-lg bg-zinc-100 dark:bg-zinc-900"
         >
@@ -104,7 +106,7 @@ export default function Artwork() {
             className="rounded-lg object-cover"
             sizes="75vw"
           />
-        </div>
+        </Link>
       ))}
 
       {hasMore && (

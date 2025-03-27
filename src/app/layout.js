@@ -22,7 +22,21 @@ export const metadata = {
   description: "",
 };
 
-export default async function RootLayout({ children, modal }) {
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "oklch(0.985 0 0)" },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "oklch(0.141 0.005 285.823)",
+    },
+  ],
+};
+
+export default function RootLayout({ children, modal }) {
   return (
     <html lang="th">
       <body
