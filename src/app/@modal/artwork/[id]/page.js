@@ -108,11 +108,10 @@ export default function Page() {
       if (error) {
         console.error("Error deleting artwork:", error);
       } else {
-        router.refresh(); // Refresh the page
+        closeModal();
       }
     } catch (err) {
       console.error("Unexpected error during deletion:", err);
-    } finally {
       setIsDeleting(false);
     }
   };
@@ -127,8 +126,8 @@ export default function Page() {
     >
       {/* Show loading state */}
       {isDeleting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <p className="text-white">กำลังลบ...</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-100/75 backdrop-blur-xs dark:bg-zinc-900/75">
+          <p className="text-3xl font-semibold">กำลังลบ...</p>
         </div>
       )}
       <div
